@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#17162e">
+<title>Atom Quest — Science Adventure</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Space+Mono:wght@400;700&display=swap');
+:root{--bg:#17162e;--panel:#242346;--panel2:#2e2b56;--line:#4c477e;--ink:#f7f3ff;--muted:#b8b2d8;--gold:#ffd76a;--mint:#8af3d2;--pink:#ff8fc5;--blue:#91c7ff;--purple:#b6a2ff;--green:#a6f08c}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 20% 0%,#393265 0,transparent 35%),radial-gradient(ellipse at 90% 20%,#253e65 0,transparent 30%),var(--bg);color:var(--ink);font-family:Nunito,system-ui,sans-serif;min-height:100vh}button,input,select{font:inherit}button{cursor:pointer}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.2;background-image:radial-gradient(#fff 1px,transparent 1px);background-size:29px 29px;mask-image:linear-gradient(#000,transparent 80%)}
+.wrap{width:min(1380px,calc(100% - 30px));margin:auto;position:relative}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:17px 0;border-bottom:1px solid #ffffff1b}.brand{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:.02em}.brand-mark{width:39px;height:39px;display:grid;place-items:center;border-radius:13px;background:linear-gradient(135deg,var(--gold),var(--pink));color:#282244;font-size:1.35rem;box-shadow:0 5px 0 #0002}.header-right{display:flex;align-items:center;gap:9px}.mini-stat{padding:8px 11px;border:1px solid var(--line);border-radius:11px;background:#242346a8;font:11px 'Space Mono',monospace;color:var(--gold);white-space:nowrap}.sound-dot{color:var(--mint)}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:25px;align-items:center;padding:33px 0 25px}.eyebrow{font:10px 'Space Mono',monospace;text-transform:uppercase;letter-spacing:.15em;color:var(--mint)}h1{font-size:clamp(2.8rem,6.5vw,5.8rem);line-height:.9;letter-spacing:-.07em;margin:14px 0 17px;font-weight:900}h1 .accent{color:var(--gold);text-shadow:3px 4px 0 #ff8fc52e}.hero p{max-width:590px;color:var(--muted);line-height:1.7;margin:0}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}.btn{border:0;border-radius:12px;padding:12px 16px;background:var(--gold);color:#282244;font-weight:900;box-shadow:0 4px 0 #c18c40;transition:transform .15s,filter .15s}.btn:hover{transform:translateY(-2px);filter:brightness(1.05)}.btn:active{transform:translateY(2px);box-shadow:none}.btn.alt{background:#38345f;color:var(--ink);border:1px solid #5a538b;box-shadow:0 4px 0 #15142a}.btn.small{padding:8px 11px;font-size:.8rem;border-radius:9px}.avatar-stage{min-height:245px;position:relative;display:grid;place-items:center;overflow:hidden;border:1px solid #5b5291;border-radius:24px;background:linear-gradient(145deg,#332f62,#222548);box-shadow:inset 0 0 45px #b6a2ff0b}.planet{width:130px;height:130px;border-radius:50%;position:relative;background:radial-gradient(circle at 30% 25%,#fff5b7 0 5%,#ffd76a 7% 20%,#ff9b9b 55%,#b55ca7 100%);box-shadow:0 0 45px #ffb5b766, inset -15px -18px 25px #5c3a8c88;animation:float 4s ease-in-out infinite}.planet:before,.planet:after{content:"";position:absolute;width:200px;height:60px;border:3px solid #8af3d2b8;border-radius:50%;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-24deg)}.planet:after{transform:translate(-50%,-50%) rotate(58deg);border-color:#91c7ffb8;width:178px;height:74px}.planet-core{position:absolute;inset:0;display:grid;place-items:center;font-size:2.2rem;z-index:1;filter:drop-shadow(0 2px 3px #7b4a4a)}.float-label{position:absolute;font:10px 'Space Mono',monospace;color:var(--muted)}.fl1{top:18px;left:18px}.fl2{right:16px;top:52px;color:var(--gold)}.fl3{bottom:18px;right:18px;color:var(--mint)}.spark{position:absolute;color:var(--gold);font-size:1.4rem;animation:twinkle 2s ease-in-out infinite}.s1{top:32px;right:26%}.s2{bottom:40px;left:18%;animation-delay:.7s}
+@keyframes float{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-9px) rotate(4deg)}}@keyframes twinkle{0%,100%{opacity:.45;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}@keyframes pop{0%{transform:scale(.9);opacity:0}100%{transform:scale(1);opacity:1}}
+.dashboard{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin:8px 0 27px}.stat-card{background:linear-gradient(135deg,#302d59,#252344);border:1px solid #4b467b;border-radius:15px;padding:14px 15px;position:relative;overflow:hidden}.stat-card:after{content:"";position:absolute;width:65px;height:65px;border-radius:50%;background:#ffffff06;right:-20px;top:-20px}.stat-label{font:9px 'Space Mono',monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}.stat-value{font-size:1.65rem;font-weight:900;margin:4px 0 1px;line-height:1.2}.stat-sub{font-size:.75rem;color:var(--muted)}.xp-track{height:6px;background:#17162e;border-radius:99px;overflow:hidden;margin-top:8px}.xp-fill{height:100%;width:0;background:linear-gradient(90deg,var(--mint),var(--gold));border-radius:99px;transition:width .35s}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:15px;margin:23px 0 14px}.section-head h2{font-size:clamp(1.45rem,3vw,2.1rem);letter-spacing:-.04em;margin:4px 0 0}.section-head p{color:var(--muted);margin:5px 0 0;font-size:.88rem}.tag{display:inline-flex;align-items:center;gap:7px;border:1px solid #575087;border-radius:99px;padding:7px 11px;color:var(--gold);font-size:.72rem;font-weight:800;white-space:nowrap}
+.toolbar{display:grid;grid-template-columns:minmax(200px,1fr) minmax(180px,.5fr) auto;gap:9px;margin:15px 0 13px}.field{display:flex;align-items:center;gap:9px;padding:0 12px;min-height:44px;background:#211f40;border:1px solid #4c477e;border-radius:11px;color:var(--mint)}.field input,.field select{min-width:0;width:100%;background:transparent;border:0;outline:0;color:var(--ink)}.field input::placeholder{color:#9993bc}.field option{background:#242346}.result-count{font:10px 'Space Mono',monospace;color:var(--muted);align-self:center;text-align:right}.legend{display:flex;flex-wrap:wrap;gap:7px;margin:13px 0}.legend-item{display:flex;align-items:center;gap:6px;border:1px solid #4a4678;background:#211f40;border-radius:8px;padding:6px 8px;color:#d7d1f2;font-size:.68rem;cursor:pointer}.swatch{width:9px;height:9px;border-radius:3px;background:var(--c)}
+.table-shell{padding:11px;background:#1d1c39;border:1px solid #4a4679;border-radius:15px;overflow:auto;box-shadow:0 15px 30px #0002}.periodic{display:grid;grid-template-columns:repeat(18,minmax(49px,1fr));gap:5px;min-width:1015px}.glabel,.plabel{font:10px 'Space Mono',monospace;color:#9c96c7;text-align:center;align-self:center}.el{--c:#4b477d;position:relative;min-width:0;aspect-ratio:1/1.04;border:1px solid color-mix(in srgb,var(--c),white 25%);border-radius:9px;background:linear-gradient(145deg,color-mix(in srgb,var(--c),white 8%),var(--c));color:#fff;padding:5px 4px;display:flex;flex-direction:column;justify-content:space-between;text-align:left;cursor:pointer;transition:transform .14s,filter .14s,box-shadow .14s;overflow:hidden}.el:after{content:"";position:absolute;inset:0;background:linear-gradient(130deg,#ffffff17,transparent 55%);pointer-events:none}.el:hover,.el:focus-visible{transform:translateY(-4px) rotate(-1deg);filter:brightness(1.18);z-index:2;box-shadow:0 8px 15px #0004;outline:2px solid #fff6;outline-offset:1px}.el.found{box-shadow:0 0 0 2px var(--gold),0 0 18px #ffd76a44;animation:pop .2s ease-out}.el.dim{opacity:.15;filter:grayscale(1);pointer-events:none}.anum{font:9px 'Space Mono',monospace;color:#ffffffbb}.sym{font-size:clamp(1rem,1.35vw,1.4rem);font-weight:900;line-height:1;letter-spacing:-.06em}.ename{font-size:clamp(.43rem,.52vw,.6rem);line-height:1.08;overflow-wrap:anywhere;color:#fff}.mass{font:8px 'Space Mono',monospace;color:#ffffffb8}.placeholder{visibility:hidden;pointer-events:none}.series-label{grid-column:1/4;color:#aaa4d4;font:10px 'Space Mono',monospace;align-self:center;padding-left:5px}.table-note{font-size:.76rem;color:var(--muted);margin:11px 3px 0}.empty{display:none;text-align:center;padding:25px;color:var(--muted)}
+.lower-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin:23px 0 42px}.game-card{background:linear-gradient(145deg,#2b2853,#22213f);border:1px solid #4d477d;border-radius:17px;padding:19px;position:relative;overflow:hidden}.game-card h3{font-size:1.2rem;margin:7px 0}.game-card p{color:var(--muted);font-size:.86rem;line-height:1.55;margin:0}.fact-symbol{font-size:2.7rem;font-weight:900;color:var(--gold);margin:7px 0;line-height:1}.game-card .btn{margin-top:14px}.quiz-options{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}.quiz-options button{border:1px solid #5b558d;border-radius:9px;background:#39355f;color:var(--ink);padding:8px 11px;font-size:.82rem;font-weight:800}.quiz-options button:disabled{opacity:.85;cursor:default}.quiz-feedback{min-height:1.5em;color:var(--mint);font-size:.82rem;font-weight:800;margin-top:10px}.quest-strip{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:16px 18px;background:linear-gradient(90deg,#3a315e,#2b3159);border:1px solid #5b508e;border-radius:15px;margin:0 0 22px}.quest-strip strong{display:block;font-size:1rem}.quest-strip span{display:block;color:var(--muted);font-size:.8rem;margin-top:3px}
+.overlay{position:fixed;inset:0;background:#0b0919d9;backdrop-filter:blur(7px);display:none;place-items:center;padding:16px;z-index:20}.overlay.open{display:grid}.modal{width:min(570px,100%);max-height:91vh;overflow:auto;background:linear-gradient(145deg,#302d59,#1c1b38);border:1px solid #7267a8;border-radius:20px;box-shadow:0 25px 100px #0008;animation:pop .18s ease-out}.modal-head{display:flex;justify-content:space-between;align-items:center;padding:15px 18px;border-bottom:1px solid #ffffff17;color:var(--mint);font:10px 'Space Mono',monospace;letter-spacing:.1em}.close{width:33px;height:33px;border-radius:10px;border:1px solid #5a5488;background:#242243;color:#fff;font-size:1.1rem}.modal-body{padding:21px}.detail-top{display:grid;grid-template-columns:145px 1fr;gap:19px;align-items:center}.detail-tile{--c:#4b477d;border:1px solid color-mix(in srgb,var(--c),white 25%);background:linear-gradient(145deg,color-mix(in srgb,var(--c),white 8%),var(--c));border-radius:15px;padding:13px;min-height:155px;display:flex;flex-direction:column;justify-content:space-between}.detail-tile .sym{font-size:3.6rem;text-align:center}.detail-tile .ename{text-align:center;font-size:.8rem}.detail-title{font-size:2.1rem;line-height:1;margin:0 0 10px;letter-spacing:-.05em}.pill{display:inline-block;background:#211f40;border:1px solid #575087;border-radius:99px;padding:5px 8px;margin:2px;font-size:.68rem;color:var(--gold);font-weight:800}.desc{color:#d0cae9;line-height:1.65;margin:19px 0}.detail-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.detail-stat{background:#211f40;border:1px solid #494474;border-radius:11px;padding:11px}.detail-stat small{display:block;color:#aaa4ce;font:9px 'Space Mono',monospace;text-transform:uppercase}.detail-stat strong{display:block;margin-top:5px;font-size:.9rem}.modal-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}
+.toast{position:fixed;bottom:18px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:var(--gold);color:#282244;border-radius:12px;padding:11px 16px;font-weight:900;box-shadow:0 8px 30px #0005;z-index:30;transition:opacity .2s,transform .2s}.toast.show{opacity:1;transform:translate(-50%,0)}
+footer{padding:19px 0 27px;border-top:1px solid #ffffff1b;color:#9690bb;display:flex;justify-content:space-between;gap:12px;font:10px 'Space Mono',monospace}
+@media(max-width:800px){.hero{grid-template-columns:1fr}.avatar-stage{min-height:200px}.dashboard{grid-template-columns:repeat(2,1fr)}.lower-grid{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.result-count{text-align:left}.section-head{align-items:start;flex-direction:column}.tag{white-space:normal}}
+@media(max-width:500px){.wrap{width:calc(100% - 20px)}.brand{font-size:.84rem}.mini-stat{font-size:9px;padding:7px}.hero{padding-top:25px}.hero h1{font-size:3.2rem}.dashboard{gap:8px}.stat-card{padding:12px}.stat-value{font-size:1.4rem}.detail-top{grid-template-columns:105px 1fr;gap:12px}.detail-tile{min-height:130px;padding:9px}.detail-tile .sym{font-size:2.6rem}.detail-title{font-size:1.65rem}.modal-body{padding:15px}.quest-strip{align-items:start;flex-direction:column}footer{flex-direction:column}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><div class="brand"><span class="brand-mark">⚛</span> ATOM QUEST <span style="font-size:.7rem;color:var(--muted);font-weight:700">/ SCIENCE ADVENTURE</span></div><div class="header-right"><div class="mini-stat">✦ <span id="headerXP">0</span> XP</div><div class="mini-stat">LVL <span id="headerLevel">1</span></div></div></header>
+<main>
+<section class="hero">
+<div><div class="eyebrow">Welcome, junior scientist! ✦ Mission 001</div><h1>Ready to<br>explore <span class="accent">atoms?</span></h1><p>Discover all 118 elements, collect science facts, complete mini challenges, and level up your knowledge. Your next discovery is one click away.</p><div class="hero-actions"><button class="btn" id="exploreBtn">Start exploring 🚀</button><button class="btn alt" id="randomTop">🎲 Surprise me</button></div></div>
+<div class="avatar-stage" aria-label="Animated atom planet illustration"><span class="float-label fl1">QUEST ZONE / 01</span><span class="float-label fl2">+XP ✦</span><span class="float-label fl3">DISCOVERY IN PROGRESS</span><span class="spark s1">✦</span><span class="spark s2">✧</span><div class="planet"><div class="planet-core">⚛</div></div></div>
+</section>
+<section class="dashboard" aria-label="Player progress">
+<div class="stat-card"><div class="stat-label">Scientist level</div><div class="stat-value" id="level">01</div><div class="stat-sub" id="rank">Curious Cadet</div><div class="xp-track"><div class="xp-fill" id="xpFill"></div></div></div>
+<div class="stat-card"><div class="stat-label">Discovery points</div><div class="stat-value"><span id="xp">0</span> <span style="font-size:.8rem;color:var(--gold)">XP</span></div><div class="stat-sub">Earn points by exploring</div></div>
+<div class="stat-card"><div class="stat-label">Elements discovered</div><div class="stat-value"><span id="discovered">0</span><span style="font-size:1rem;color:var(--muted)"> / 118</span></div><div class="stat-sub">Click an element to log it</div></div>
+<div class="stat-card"><div class="stat-label">Quiz streak</div><div class="stat-value"><span id="streak">0</span> <span style="font-size:.8rem;color:var(--mint)">🔥</span></div><div class="stat-sub">Correct answers in a row</div></div>
+</section>
+<section id="explorer">
+<div class="section-head"><div><div class="eyebrow">Mission board / Periodic table</div><h2>Choose your next discovery</h2><p>Tap an element tile to unlock its profile and earn XP.</p></div><div class="tag">✦ DISCOVERY MODE ACTIVE</div></div>
+<div class="toolbar"><label class="field">⌕ <input id="search" type="search" placeholder="Search name, symbol, atomic number…" autocomplete="off"></label><label class="field">▦ <select id="filter"><option value="all">All element families</option></select></label><div class="result-count" id="count">118 / 118 ELEMENTS</div></div>
+<div class="legend" id="legend"></div><div class="table-shell" tabindex="0" aria-label="Scrollable periodic table"><div class="periodic" id="periodic"></div></div><div class="empty" id="empty">No matching elements found. Try another search! ✨</div><p class="table-note">💡 Tip: scroll sideways on smaller screens to see all 18 groups. New elements earn discovery XP only once per session.</p>
+</section>
+<section class="section-head"><div><div class="eyebrow">Side quest / bonus XP</div><h2>Keep your curiosity streak alive</h2><p>Small challenges, surprisingly big discoveries.</p></div></section>
+<section class="quest-strip"><div><strong>🎯 Daily-style mission: Meet 5 elements</strong><span id="questText">Discover 5 unique elements to complete this mini mission.</span></div><div class="tag" id="questProgress">0 / 5 FOUND</div></section>
+<section class="lower-grid">
+<article class="game-card"><div class="eyebrow">Loot drop / Science fact</div><h3 id="factTitle">Carbon has a secret identity.</h3><div class="fact-symbol" id="factSymbol">C</div><p id="factText">Carbon atoms can be arranged as soft graphite or hard diamond. Same element, different structure!</p><button class="btn alt" id="newFact">🎁 Reveal another fact</button></article>
+<article class="game-card"><div class="eyebrow">Boss challenge / Quick quiz</div><h3 id="question">Which element has the symbol O?</h3><p>Choose the right answer. Correct answers earn XP and build your streak!</p><div class="quiz-options" id="options"></div><div class="quiz-feedback" id="feedback" aria-live="polite"></div><button class="btn alt" id="nextQuiz">Next challenge →</button></article>
+</section>
+</main>
+<footer><span>ATOM QUEST · SCIENCE ADVENTURE UI</span><span>EXPLORE · LEARN · LEVEL UP ✦</span></footer>
+</div>
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="detailName"><div class="modal"><div class="modal-head"><span>🔓 DISCOVERY UNLOCKED / ELEMENT PROFILE</span><button class="close" id="close" aria-label="Close">×</button></div><div class="modal-body" id="modalBody"></div></div></div>
+<div class="toast" id="toast" role="status"></div>
+<script>
+const families={
+alkali:{label:'Alkali metals',c:'#b34f79'},alkaline:{label:'Alkaline earth metals',c:'#b9784c'},transition:{label:'Transition metals',c:'#377b96'},post:{label:'Post-transition metals',c:'#4b72b5'},metalloid:{label:'Metalloids',c:'#85873e'},nonmetal:{label:'Other nonmetals',c:'#328d70'},halogen:{label:'Halogens',c:'#9362bb'},noble:{label:'Noble gases',c:'#5359b2'},lanth:{label:'Lanthanides',c:'#a36c44'},act:{label:'Actinides',c:'#a44d65'},unknown:{label:'Unknown properties',c:'#656d82'}
+};
+const raw=[
+[1,'H','Hydrogen',1.008,'nonmetal',1,1,'Gas','The lightest element and the most abundant element in the universe.'],
+[2,'He','Helium',4.0026,'noble',18,1,'Gas','A very light noble gas used in cryogenics and scientific instruments.'],
+[3,'Li','Lithium',6.94,'alkali',1,2,'Solid','A light metal used in rechargeable batteries.'],
+[4,'Be','Beryllium',9.0122,'alkaline',2,2,'Solid','A stiff, lightweight metal used in specialized aerospace components.'],
+[5,'B','Boron',10.81,'metalloid',13,2,'Solid','A metalloid used in borosilicate glass and detergents.'],
+[6,'C','Carbon',12.011,'nonmetal',14,2,'Solid','The backbone of organic chemistry; its forms include graphite and diamond.'],
+[7,'N','Nitrogen',14.007,'nonmetal',15,2,'Gas','Nitrogen gas makes up about 78% of Earth’s atmosphere.'],
+[8,'O','Oxygen',15.999,'nonmetal',16,2,'Gas','Essential for aerobic respiration and a major part of Earth’s crust.'],
+[9,'F','Fluorine',18.998,'halogen',17,2,'Gas','The most electronegative element; compounds have many industrial uses.'],
+[10,'Ne','Neon',20.180,'noble',18,2,'Gas','Emits a characteristic glow in electrical discharge tubes.'],
+[11,'Na','Sodium',22.990,'alkali',1,3,'Solid','A reactive metal; sodium ions are important for nerve signals.'],
+[12,'Mg','Magnesium',24.305,'alkaline',2,3,'Solid','A lightweight metal and an essential element in living cells.'],
+[13,'Al','Aluminium',26.982,'post',13,3,'Solid','A lightweight, corrosion-resistant metal widely used in packaging and transport.'],
+[14,'Si','Silicon',28.085,'metalloid',14,3,'Solid','A semiconductor central to modern computer chips and solar cells.'],
+[15,'P','Phosphorus',30.974,'nonmetal',15,3,'Solid','Found in DNA, ATP, and mineral components of bones and teeth.'],
+[16,'S','Sulfur',32.06,'nonmetal',16,3,'Solid','A yellow nonmetal used in sulfuric acid and many industrial processes.'],
+[17,'Cl','Chlorine',35.45,'halogen',17,3,'Gas','Used to disinfect water and make many useful chemical compounds.'],
+[18,'Ar','Argon',39.948,'noble',18,3,'Gas','An inert gas used in welding and protective atmospheres.'],
+[19,'K','Potassium',39.098,'alkali',1,4,'Solid','A reactive metal; potassium ions help cells maintain electrical balance.'],
+[20,'Ca','Calcium',40.078,'alkaline',2,4,'Solid','A key component of bones, teeth, limestone, and cement.'],
+[21,'Sc','Scandium',44.956,'transition',3,4,'Solid','Used in some aluminium alloys and high-intensity lighting.'],
+[22,'Ti','Titanium',47.867,'transition',4,4,'Solid','Strong, light, and corrosion-resistant; used in aircraft and implants.'],
+[23,'V','Vanadium',50.942,'transition',5,4,'Solid','Added to steel to improve strength and wear resistance.'],
+[24,'Cr','Chromium',51.996,'transition',6,4,'Solid','Used in stainless steel and decorative protective coatings.'],
+[25,'Mn','Manganese',54.938,'transition',7,4,'Solid','Important in steelmaking and used by enzymes in living organisms.'],
+[26,'Fe','Iron',55.845,'transition',8,4,'Solid','A major component of steel and of hemoglobin in blood.'],
+[27,'Co','Cobalt',58.933,'transition',9,4,'Solid','Used in certain rechargeable batteries, alloys, and blue pigments.'],
+[28,'Ni','Nickel',58.693,'transition',10,4,'Solid','Used in stainless steel, alloys, and rechargeable battery chemistries.'],
+[29,'Cu','Copper',63.546,'transition',11,4,'Solid','Excellent electrical conductivity makes it useful for wiring.'],
+[30,'Zn','Zinc',65.38,'transition',12,4,'Solid','Used to protect steel from corrosion and is essential in small amounts for life.'],
+[31,'Ga','Gallium',69.723,'post',13,4,'Solid','Melts near room temperature and is used in semiconductor compounds.'],
+[32,'Ge','Germanium',72.630,'metalloid',14,4,'Solid','A semiconductor used in fiber optics and infrared optics.'],
+[33,'As','Arsenic',74.922,'metalloid',15,4,'Solid','A metalloid whose compounds can be highly toxic.'],
+[34,'Se','Selenium',78.971,'nonmetal',16,4,'Solid','Used in glassmaking and electronics; trace amounts are biologically important.'],
+[35,'Br','Bromine',79.904,'halogen',17,4,'Liquid','A reddish-brown liquid nonmetal at room temperature.'],
+[36,'Kr','Krypton',83.798,'noble',18,4,'Gas','A noble gas used in specialized lamps and lasers.'],
+[37,'Rb','Rubidium',85.468,'alkali',1,5,'Solid','A highly reactive alkali metal used in research and atomic clocks.'],
+[38,'Sr','Strontium',87.62,'alkaline',2,5,'Solid','Some strontium salts create a vivid red color in fireworks.'],
+[39,'Y','Yttrium',88.906,'transition',3,5,'Solid','Used in phosphors, ceramics, and specialized materials.'],
+[40,'Zr','Zirconium',91.224,'transition',4,5,'Solid','Corrosion-resistant and used in nuclear reactor components.'],
+[41,'Nb','Niobium',92.906,'transition',5,5,'Solid','Used in superconducting magnets and high-strength steel alloys.'],
+[42,'Mo','Molybdenum',95.95,'transition',6,5,'Solid','Improves the strength and heat resistance of steel alloys.'],
+[43,'Tc','Technetium',98,'transition',7,5,'Solid','A radioactive element widely used in medical diagnostic imaging.'],
+[44,'Ru','Ruthenium',101.07,'transition',8,5,'Solid','Used in electronics and as a catalyst in chemical reactions.'],
+[45,'Rh','Rhodium',102.91,'transition',9,5,'Solid','A precious metal used in catalytic converters.'],
+[46,'Pd','Palladium',106.42,'transition',10,5,'Solid','Used in catalysts, electronics, and some hydrogen technologies.'],
+[47,'Ag','Silver',107.87,'transition',11,5,'Solid','Has the highest electrical conductivity of any element.'],
+[48,'Cd','Cadmium',112.41,'transition',12,5,'Solid','A toxic metal used in some specialized applications.'],
+[49,'In','Indium',114.82,'post',13,5,'Solid','Used in transparent conductive coatings for displays.'],
+[50,'Sn','Tin',118.71,'post',14,5,'Solid','Used in solder and protective coatings.'],
+[51,'Sb','Antimony',121.76,'metalloid',15,5,'Solid','A metalloid used in alloys and some flame-retardant materials.'],
+[52,'Te','Tellurium',127.60,'metalloid',16,5,'Solid','Used in some solar cells and specialized alloys.'],
+[53,'I','Iodine',126.90,'halogen',17,5,'Solid','Essential in small amounts for thyroid hormone production.'],
+[54,'Xe','Xenon',131.29,'noble',18,5,'Gas','Used in flash lamps and specialized propulsion systems.'],
+[55,'Cs','Caesium',132.91,'alkali',1,6,'Solid','An extremely reactive alkali metal used in precision atomic clocks.'],
+[56,'Ba','Barium',137.33,'alkaline',2,6,'Solid','Barium compounds have specialized uses, including medical imaging.'],
+[57,'La','Lanthanum',138.91,'lanth',3,9,'Solid','A soft metal belonging to the lanthanide series.'],
+[58,'Ce','Cerium',140.12,'lanth',4,9,'Solid','Used in glass polishing and catalytic materials.'],
+[59,'Pr','Praseodymium',140.91,'lanth',5,9,'Solid','Used in specialty magnets and colored glass.'],
+[60,'Nd','Neodymium',144.24,'lanth',6,9,'Solid','Important for powerful permanent magnets.'],
+[61,'Pm','Promethium',145,'lanth',7,9,'Solid','Radioactive and has no stable isotopes.'],
+[62,'Sm','Samarium',150.36,'lanth',8,9,'Solid','Used in magnets and specialized applications.'],
+[63,'Eu','Europium',151.96,'lanth',9,9,'Solid','Europium compounds are used in some display phosphors.'],
+[64,'Gd','Gadolinium',157.25,'lanth',10,9,'Solid','Used in magnetic materials and MRI contrast compounds.'],
+[65,'Tb','Terbium',158.93,'lanth',11,9,'Solid','Used in phosphors and magnetostrictive materials.'],
+[66,'Dy','Dysprosium',162.50,'lanth',12,9,'Solid','Helps improve heat resistance in some powerful magnets.'],
+[67,'Ho','Holmium',164.93,'lanth',13,9,'Solid','Has strong magnetic properties and specialized laser applications.'],
+[68,'Er','Erbium',167.26,'lanth',14,9,'Solid','Used to amplify signals in fiber-optic communication.'],
+[69,'Tm','Thulium',168.93,'lanth',15,9,'Solid','A rare lanthanide used in some lasers and portable X-ray devices.'],
+[70,'Yb','Ytterbium',173.05,'lanth',16,9,'Solid','Used in specialized lasers and atomic-clock research.'],
+[71,'Lu','Lutetium',174.97,'lanth',17,9,'Solid','A dense lanthanide used in some medical imaging detectors.'],
+[72,'Hf','Hafnium',178.49,'transition',4,6,'Solid','Used in control rods and high-temperature alloys.'],
+[73,'Ta','Tantalum',180.95,'transition',5,6,'Solid','Corrosion-resistant and used in electronics components.'],
+[74,'W','Tungsten',183.84,'transition',6,6,'Solid','Has an exceptionally high melting point.'],
+[75,'Re','Rhenium',186.21,'transition',7,6,'Solid','Used in high-temperature superalloys for jet engines.'],
+[76,'Os','Osmium',190.23,'transition',8,6,'Solid','One of the densest naturally occurring elements.'],
+[77,'Ir','Iridium',192.22,'transition',9,6,'Solid','Extremely corrosion-resistant and used in specialized equipment.'],
+[78,'Pt','Platinum',195.08,'transition',10,6,'Solid','A precious metal widely used in catalysts and laboratory equipment.'],
+[79,'Au','Gold',196.97,'transition',11,6,'Solid','Resists corrosion and is used in electronics and jewelry.'],
+[80,'Hg','Mercury',200.59,'transition',12,6,'Liquid','A metal that is liquid at typical room temperature; it is toxic.'],
+[81,'Tl','Thallium',204.38,'post',13,6,'Solid','A toxic metal used only in specialized applications.'],
+[82,'Pb','Lead',207.2,'post',14,6,'Solid','A dense, toxic metal used in some batteries and radiation shielding.'],
+[83,'Bi','Bismuth',208.98,'post',15,6,'Solid','A heavy metal used in some medicines and low-melting alloys.'],
+[84,'Po','Polonium',209,'metalloid',16,6,'Solid','A highly radioactive element discovered by Marie Curie and Pierre Curie.'],
+[85,'At','Astatine',210,'halogen',17,6,'Solid','An extremely rare radioactive halogen.'],
+[86,'Rn','Radon',222,'noble',18,6,'Gas','A radioactive noble gas that can accumulate indoors.'],
+[87,'Fr','Francium',223,'alkali',1,7,'Solid','An extremely rare and radioactive alkali metal.'],
+[88,'Ra','Radium',226,'alkaline',2,7,'Solid','A radioactive element historically used in luminous paints.'],
+[89,'Ac','Actinium',227,'act',3,10,'Solid','A radioactive metal that gives its name to the actinide series.'],
+[90,'Th','Thorium',232.04,'act',4,10,'Solid','A radioactive metal being studied for potential nuclear fuel cycles.'],
+[91,'Pa','Protactinium',231.04,'act',5,10,'Solid','A rare radioactive actinide.'],
+[92,'U','Uranium',238.03,'act',6,10,'Solid','A radioactive heavy metal used as fuel in nuclear power.'],
+[93,'Np','Neptunium',237,'act',7,10,'Solid','A radioactive element produced in nuclear reactions.'],
+[94,'Pu','Plutonium',244,'act',8,10,'Solid','A radioactive actinide used in some nuclear technologies.'],
+[95,'Am','Americium',243,'act',9,10,'Solid','Used in some smoke detectors.'],
+[96,'Cm','Curium',247,'act',10,10,'Solid','A synthetic radioactive element named after the Curies.'],
+[97,'Bk','Berkelium',247,'act',11,10,'Solid','A synthetic actinide produced in specialized research facilities.'],
+[98,'Cf','Californium',251,'act',12,10,'Solid','A strong neutron source used in specialized applications.'],
+[99,'Es','Einsteinium',252,'act',13,10,'Solid','A synthetic radioactive element named after Albert Einstein.'],
+[100,'Fm','Fermium',257,'act',14,10,'Solid','A synthetic actinide named after Enrico Fermi.'],
+[101,'Md','Mendelevium',258,'act',15,10,'Solid','Named after Dmitri Mendeleev, who developed the periodic table.'],
+[102,'No','Nobelium',259,'act',16,10,'Solid','A synthetic radioactive element named after Alfred Nobel.'],
+[103,'Lr','Lawrencium',266,'act',17,10,'Solid','A synthetic actinide named after Ernest Lawrence.'],
+[104,'Rf','Rutherfordium',267,'transition',4,7,'Solid','A synthetic element named after physicist Ernest Rutherford.'],
+[105,'Db','Dubnium',268,'transition',5,7,'Solid','A synthetic radioactive element named after Dubna, Russia.'],
+[106,'Sg','Seaborgium',269,'transition',6,7,'Solid','A synthetic element named after chemist Glenn Seaborg.'],
+[107,'Bh','Bohrium',270,'transition',7,7,'Solid','A synthetic element named after physicist Niels Bohr.'],
+[108,'Hs','Hassium',277,'transition',8,7,'Solid','A synthetic element named after the German state of Hesse.'],
+[109,'Mt','Meitnerium',278,'unknown',9,7,'Unknown','A synthetic element named after physicist Lise Meitner.'],
+[110,'Ds','Darmstadtium',281,'unknown',10,7,'Unknown','A synthetic element named after Darmstadt, Germany.'],
+[111,'Rg','Roentgenium',282,'unknown',11,7,'Unknown','A synthetic element named after physicist Wilhelm Röntgen.'],
+[112,'Cn','Copernicium',285,'unknown',12,7,'Unknown','A synthetic element named after astronomer Nicolaus Copernicus.'],
+[113,'Nh','Nihonium',286,'unknown',13,7,'Unknown','A synthetic element named from the Japanese name for Japan.'],
+[114,'Fl','Flerovium',289,'unknown',14,7,'Unknown','A synthetic element named after the Flerov Laboratory.'],
+[115,'Mc','Moscovium',290,'unknown',15,7,'Unknown','A synthetic element named after the Moscow region.'],
+[116,'Lv','Livermorium',293,'unknown',16,7,'Unknown','A synthetic element named after Lawrence Livermore National Laboratory.'],
+[117,'Ts','Tennessine',294,'unknown',17,7,'Unknown','A synthetic element named after Tennessee.'],
+[118,'Og','Oganesson',294,'unknown',18,7,'Unknown','A synthetic element named after physicist Yuri Oganessian.']
+];
+const elements=raw.map(([n,s,name,mass,cat,col,row,state,desc])=>({n,s,name,mass,cat,col,row,state,desc}));
+const $=id=>document.getElementById(id);let xp=0,streak=0,discovered=new Set(),quizIndex=0,answered=false,questBonus=false;
+function toast(msg){$('toast').textContent=msg;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),1900)}
+function level(){return Math.floor(xp/100)+1}
+function award(points,msg){xp+=points;$('xp').textContent=xp;$('headerXP').textContent=xp;$('level').textContent=String(level()).padStart(2,'0');$('headerLevel').textContent=level();$('rank').textContent=level()>=5?'Quantum Explorer':level()>=3?'Element Ranger':level()>=2?'Atom Apprentice':'Curious Cadet';$('xpFill').style.width=(xp%100)+'%';if(xp>=100&&Math.floor((xp-points)/100)<Math.floor(xp/100))toast('LEVEL UP! You reached level '+level()+' 🚀');else if(msg)toast(msg)}
+function setup(){Object.entries(families).forEach(([key,f])=>{let o=document.createElement('option');o.value=key;o.textContent=f.label;$('filter').append(o);let b=document.createElement('button');b.className='legend-item';b.innerHTML=`<span class="swatch" style="--c:${f.c}"></span>${f.label}`;b.onclick=()=>{$('filter').value=$('filter').value===key?'all':key;render()};$('legend').append(b)})}
+function makeTile(e){let b=document.createElement('button');b.className='el';b.style.setProperty('--c',families[e.cat].c);b.dataset.n=e.n;b.innerHTML=`<span class="anum">${e.n}</span><span class="sym">${e.s}</span><span class="ename">${e.name}</span><span class="mass">${e.mass}</span>`;b.title=`${e.name} (${e.s})`;if(discovered.has(e.n))b.classList.add('found');b.onclick=()=>openElement(e);return b}
+function render(){const q=$('search').value.trim().toLowerCase(),cat=$('filter').value;const visible=elements.filter(e=>(cat==='all'||e.cat===cat)&&(!q||e.name.toLowerCase().includes(q)||e.s.toLowerCase().includes(q)||String(e.n)===q));$('count').textContent=`${visible.length} / 118 ELEMENTS`;const grid=$('periodic');grid.innerHTML='';for(let c=1;c<=18;c++){let d=document.createElement('div');d.className='glabel';d.style.gridColumn=c;d.style.gridRow=1;d.textContent=c;grid.append(d)}for(let r=1;r<=7;r++){let d=document.createElement('div');d.className='plabel';d.style.gridColumn=1;d.style.gridRow=r+1;d.textContent=r;grid.append(d)}
+elements.filter(e=>e.n<=56||e.n>=72).forEach(e=>{if(e.n>=89&&e.n<=103)return;let b=makeTile(e);b.style.gridColumn=e.col;b.style.gridRow=e.row+1;if(!visible.some(v=>v.n===e.n))b.classList.add('dim');grid.append(b)});
+let l=document.createElement('div');l.className='series-label';l.style.gridRow=9;l.textContent='57–71 / LANTHANIDES';grid.append(l);elements.filter(e=>e.n>=57&&e.n<=71).forEach(e=>{let b=makeTile(e);b.style.gridColumn=e.n-54;b.style.gridRow=9;if(!visible.some(v=>v.n===e.n))b.classList.add('dim');grid.append(b)});
+let a=document.createElement('div');a.className='series-label';a.style.gridRow=10;a.textContent='89–103 / ACTINIDES';grid.append(a);elements.filter(e=>e.n>=89&&e.n<=103).forEach(e=>{let b=makeTile(e);b.style.gridColumn=e.n-86;b.style.gridRow=10;if(!visible.some(v=>v.n===e.n))b.classList.add('dim');grid.append(b)});
+$('empty').style.display=visible.length?'none':'block'}
+function openElement(e){if(!discovered.has(e.n)){discovered.add(e.n);$('discovered').textContent=discovered.size;award(10,'+'+10+' XP · Element discovered! ✨');if(discovered.size>=5&&!questBonus){questBonus=true;award(25,'Mini mission complete! +25 bonus XP 🏆');$('questText').textContent='Mission complete! Great work, scientist.';$('questProgress').textContent='COMPLETED ✓'}else{$('questProgress').textContent=Math.min(discovered.size,5)+' / 5 FOUND';$('questText').textContent=discovered.size>=5?'Mission complete!':'Discover '+(5-discovered.size)+' more unique element(s) to complete this mini mission.'}render()}
+const f=families[e.cat];$('modalBody').innerHTML=`<div class="detail-top"><div class="detail-tile" style="--c:${f.c}"><span class="anum">ATOMIC NO. ${e.n}</span><span class="sym">${e.s}</span><span class="ename">${e.name}</span><span class="mass">${e.mass} u</span></div><div><h2 class="detail-title" id="detailName">${e.name}</h2><span class="pill">${f.label}</span><span class="pill">GROUP ${e.col}</span><span class="pill">PERIOD ${e.row===9?6:e.row===10?7:e.row}</span><p style="color:var(--muted);font-size:.8rem;margin-top:10px">🔓 ${discovered.has(e.n)?'Discovery logged':'New discovery'}</p></div></div><p class="desc">${e.desc}</p><div class="detail-stats"><div class="detail-stat"><small>Atomic number</small><strong>${e.n}</strong></div><div class="detail-stat"><small>Atomic mass</small><strong>${e.mass} u</strong></div><div class="detail-stat"><small>State near room temp.</small><strong>${e.state}</strong></div><div class="detail-stat"><small>Element symbol</small><strong>${e.s}</strong></div></div><div class="modal-actions"><button class="btn" id="modalRandom">🎲 Another element</button><button class="btn alt" id="modalClose">Continue quest ✓</button></div>`;$('overlay').classList.add('open');$('close').focus();$('modalClose').onclick=closeModal;$('modalRandom').onclick=()=>{closeModal();randomElement()}}
+function closeModal(){$('overlay').classList.remove('open')}function randomElement(){openElement(elements[Math.floor(Math.random()*elements.length)])}
+$('close').onclick=closeModal;$('overlay').addEventListener('click',e=>{if(e.target===$('overlay'))closeModal()});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});$('randomTop').onclick=randomElement;$('exploreBtn').onclick=()=>$('explorer').scrollIntoView({behavior:'smooth'});$('search').addEventListener('input',render);$('filter').addEventListener('change',render);
+const facts=[['Carbon has a secret identity.','C','Carbon atoms can be arranged as soft graphite or hard diamond. Same element, different structure!'],['Your body uses iron.','Fe','Iron atoms are part of hemoglobin, the protein that helps red blood cells carry oxygen.'],['Air is mostly nitrogen.','N₂','Nitrogen gas makes up about 78% of Earth’s atmosphere by volume.'],['A noble glow.','Ne','Neon can emit a vivid glow when electricity passes through a discharge tube.'],['Copper carries current.','Cu','Copper is widely used in electrical wiring because it conducts electricity very well.'],['Water is a molecule.','H₂O','Each water molecule contains two hydrogen atoms bonded to one oxygen atom.']];
+function newFact(){let f=facts[Math.floor(Math.random()*facts.length)];$('factTitle').textContent=f[0];$('factSymbol').textContent=f[1];$('factText').textContent=f[2];award(2,'+2 XP · Science fact collected!')}$('newFact').onclick=newFact;
+const quiz=[{q:'Which element has the symbol O?',a:'Oxygen',opts:['Osmium','Oxygen','Gold','Oganesson']},{q:'What is the symbol for sodium?',a:'Na',opts:['S','So','Na','N']},{q:'Which element has atomic number 6?',a:'Carbon',opts:['Calcium','Carbon','Chlorine','Cerium']},{q:'Which gas makes up most of Earth’s atmosphere?',a:'Nitrogen',opts:['Oxygen','Argon','Nitrogen','Hydrogen']},{q:'Which metal is liquid near room temperature?',a:'Mercury',opts:['Iron','Mercury','Copper','Aluminium']},{q:'Which element is commonly used in rechargeable batteries?',a:'Lithium',opts:['Lithium','Neon','Helium','Sulfur']},{q:'What is the chemical symbol for gold?',a:'Au',opts:['Ag','Gd','Au','Go']}];
+function drawQuiz(){answered=false;$('question').textContent=quiz[quizIndex].q;$('feedback').textContent='';$('options').innerHTML='';quiz[quizIndex].opts.forEach(o=>{let b=document.createElement('button');b.textContent=o;b.onclick=()=>{if(answered)return;answered=true;if(o===quiz[quizIndex].a){streak++;$('streak').textContent=streak;award(15,'Correct answer! +15 XP 🏆');$('feedback').textContent='CORRECT! +15 XP — STREAK ON FIRE 🔥';b.style.background='#34765e';b.style.borderColor='var(--mint)'}else{streak=0;$('streak').textContent=streak;$('feedback').textContent='Not quite! Correct answer: '+quiz[quizIndex].a+' — try the next one.';b.style.background='#793c60'}[...$('options').children].forEach(x=>x.disabled=true)};$('options').append(b)})}
+$('nextQuiz').onclick=()=>{quizIndex=(quizIndex+1)%quiz.length;drawQuiz()};setup();render();drawQuiz();
+</script>
+</body>
+</html>
